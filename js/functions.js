@@ -135,20 +135,8 @@ const padStringBySubString = function (string, minLength, addition) {
   }
   /* Иначе подачу символов из донора надо зациклить */
   else {
-    /* Добавлять будем посимвольно. Символы будем отсчитывать. Для этого проще перевести строку в массив. */
-    const additionArray = addition.split('');
-
-    /* Внешний цикл отсчитывает добавку */
-    for (let i = 0, j = 0; i < amountOfCharsToAdd; i++ ) {
-      stringOfCharsToAdd = stringOfCharsToAdd + additionArray[j];
-
-      if( j < additionArray.length - 1 ) { // Пока донор не исчерпал себя
-        j++; // используем его
-      } else { // как только исчерпал
-        j = 0; // начинаем использовать его сначала
-      }
-
-    }
+    stringOfCharsToAdd = addition.repeat(Math.floor(amountOfCharsToAdd / addition.length));
+    
   }
 
   return stringOfCharsToAdd + string;
