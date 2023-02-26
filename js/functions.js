@@ -12,19 +12,19 @@ const isStringWithingMaxLength = function (string, maxLength) {
 
 
 // Cтрока короче 20 символов (true)
-document.writeln( '<br>' +
+document.writeln('<br>' +
   isStringWithingMaxLength('проверяемая строка', 20)
-)
+);
 
 // Длина строки ровно 18 символов (true)
 document.writeln('<br>' +
   isStringWithingMaxLength('проверяемая строка', 18)
-)
+);
 
 // Строка длиннее 10 символов (false)
 document.writeln('<br>' +
   isStringWithingMaxLength('проверяемая строка', 10)
-)
+);
 
 
 
@@ -47,22 +47,22 @@ const isPalindrome = function (string) {
 // Строка является палиндромом (true)
 document.writeln('<br>' +
   isPalindrome('топот')
-)
+);
 
 // Несмотря на разный регистр, тоже палиндром (true)
 document.writeln('<br>' +
   isPalindrome('ДовОд')
-)
+);
 
 // Это не палиндром (false)
 document.writeln('<br>' +
   isPalindrome('Кекс')
-)
+);
 
 // Это палиндром, несмотря на пробелы (true)
 document.writeln('<br>' +
   isPalindrome('Лёша на полке клопа нашёл ')
-)
+);
 
 
 
@@ -83,28 +83,28 @@ const extractDigitsFromSting = function (string) {
 
 document.writeln('<br>' +
   extractDigitsFromSting('2023 год')            // 2023
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting('ECMAScript 2022')     // 2022
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting('1 кефир, 0.5 батона') // 105
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting('агент 007')           // 7  /* TO DO: Вопрос! Почему обрезаются нолики в этом случае, но не обрезаются в случае "агент 1007", например */
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting('а я томат')           // NaN
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting(2023)        // 2023
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting(-1)          // 1
-)
+);
 document.writeln('<br>' +
   extractDigitsFromSting(1.5)         // 15
-)
+);
 
 
 
