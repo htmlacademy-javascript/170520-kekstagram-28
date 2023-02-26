@@ -139,8 +139,15 @@ const padStringBySubString = function (string, minLength, addition) {
     const additionArray = addition.split('');
 
     /* Внешний цикл отсчитывает добавку */
-    for (let i = 0; i < amountOfCharsToAdd; i++) {
-      stringOfCharsToAdd = 'u' + stringOfCharsToAdd;
+    for (let i = 0, j = 0; i < amountOfCharsToAdd; i++ ) {
+      stringOfCharsToAdd = stringOfCharsToAdd + additionArray[j];
+
+      if( j < additionArray.length - 1 ) { // Пока донор не исчерпал себя
+        j++; // используем его
+      } else { // как только исчерпал
+        j = 0; // начинаем использовать его сначала
+      }
+
     }
   }
 
@@ -148,19 +155,19 @@ const padStringBySubString = function (string, minLength, addition) {
 };
 
 // Добавочный символ использован один раз (01)
-console.log(
-  padStringBySubString('1', 2, '0')
-)
+// console.log(
+//   padStringBySubString('1', 2, '0')
+// )
 
 // Добавочный символ использован три раза (0001)
-console.log(
-  padStringBySubString('1', 4, '0')
-)
+// console.log(
+//   padStringBySubString('1', 4, '0')
+// )
 
 // Добавочные символы обрезаны с конца (werq)
-console.log(
-  padStringBySubString('q', 4, 'werty')
-)
+// console.log(
+//   padStringBySubString('q', 4, 'werty')
+// )
 
 // Добавочные символы использованы полтора раза (wweq)
 console.log(
@@ -168,6 +175,6 @@ console.log(
 )
 
 // Добавочные символы не использованы, исходная строка не изменена (qwerty)
-console.log(
-  padStringBySubString('qwerty', 4, '0')
-)
+// console.log(
+//   padStringBySubString('qwerty', 4, '0')
+// )
