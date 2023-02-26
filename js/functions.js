@@ -12,17 +12,17 @@ const isStringWithingMaxLength = function (string, maxLength) {
 
 
 // Cтрока короче 20 символов (true)
-document.writeln('<br>' +
+document.writeln(
   isStringWithingMaxLength('проверяемая строка', 20)
 );
 
 // Длина строки ровно 18 символов (true)
-document.writeln('<br>' +
+document.writeln(
   isStringWithingMaxLength('проверяемая строка', 18)
 );
 
 // Строка длиннее 10 символов (false)
-document.writeln('<br>' +
+document.writeln(
   isStringWithingMaxLength('проверяемая строка', 10)
 );
 
@@ -45,22 +45,22 @@ const isPalindrome = function (string) {
 
 
 // Строка является палиндромом (true)
-document.writeln('<br>' +
+document.writeln(
   isPalindrome('топот')
 );
 
 // Несмотря на разный регистр, тоже палиндром (true)
-document.writeln('<br>' +
+document.writeln(
   isPalindrome('ДовОд')
 );
 
 // Это не палиндром (false)
-document.writeln('<br>' +
+document.writeln(
   isPalindrome('Кекс')
 );
 
 // Это палиндром, несмотря на пробелы (true)
-document.writeln('<br>' +
+document.writeln(
   isPalindrome('Лёша на полке клопа нашёл ')
 );
 
@@ -81,28 +81,28 @@ const extractDigitsFromSting = function (string) {
   return (string.length === 0) ? NaN : +string; // Здесь аккуратней с условием, может быть просто нолик и он валиден
 }
 
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting('2023 год')            // 2023
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting('ECMAScript 2022')     // 2022
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting('1 кефир, 0.5 батона') // 105
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting('агент 007')           // 7  /* TO DO: Вопрос! Почему обрезаются нолики в этом случае, но не обрезаются в случае "агент 1007", например */
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting('а я томат')           // NaN
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting(2023)        // 2023
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting(-1)          // 1
 );
-document.writeln('<br>' +
+document.writeln(
   extractDigitsFromSting(1.5)         // 15
 );
 
@@ -146,26 +146,26 @@ const padStringBySubString = function (string, targetLength, filler) {
 
 
 // Добавочный символ использован один раз (01)
-document.writeln('<br>' +
+document.writeln(
   padStringBySubString('1', 2, '0')
 )
 
 // Добавочный символ использован три раза (0001)
-document.writeln('<br>' +
+document.writeln(
   padStringBySubString('1', 4, '0')
 )
 
 // Добавочные символы обрезаны с конца (werq)
-document.writeln('<br>' +
+document.writeln(
   padStringBySubString('q', 4, 'werty')
 )
 
 // Добавочные символы использованы полтора раза (wweq)
-document.writeln('<br>' +
+document.writeln(
   padStringBySubString('q', 4, 'we')
 )
 
 // Добавочные символы не использованы, исходная строка не изменена (qwerty)
-document.writeln('<br>' +
+document.writeln(
   padStringBySubString('qwerty', 4, '0')
 )
