@@ -29,6 +29,7 @@ console.log(
 )
 
 
+
 /**
  * Функция для проверки, является ли строка палиндромом.
  * Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево
@@ -38,7 +39,7 @@ console.log(
 
 const isPalindrome = function (string) {
   string = string.toLowerCase(); // Регистр на "палиндромность" не влияет
-  string = string.replace(/\s/g, ""); // Удаляем whitespace символы регуляркой "\s" так как они не влияют на палиндромность. Флаг "g" означает global -- удаляем их все
+  string = string.replace(/\s/g, ''); // Удаляем whitespace символы регуляркой "\s" так как они не влияют на палиндромность.
   return string === string.split('').reverse().join('');
 };
 
@@ -61,4 +62,34 @@ console.log(
 // Это палиндром, несмотря на пробелы (true)
 console.log(
   isPalindrome('Лёша на полке клопа нашёл ')
+)
+
+/**
+ * Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает
+ * их в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN:
+ * @param string
+ * @returns {number}
+ */
+
+/* to do? exclude leading zero? */
+
+const extractDigitsFromSting = function (string) {
+  string = string.replace(/[^0-9]/g, ''); /* Удаляем всё, что не цифры 0-9 */
+  return (string.length === 0) ? NaN : +string; // Здесь аккуратней с условием, может быть просто нолик и он валиден
+}
+
+console.log(
+  extractDigitsFromSting('2023 год')            // 2023
+)
+console.log(
+  extractDigitsFromSting('ECMAScript 2022')     // 2022
+)
+console.log(
+  extractDigitsFromSting('1 кефир, 0.5 батона') // 105
+)
+console.log(
+  extractDigitsFromSting('агент 007')          // 7
+)
+console.log(
+  extractDigitsFromSting('а я томат')           // NaN
 )
