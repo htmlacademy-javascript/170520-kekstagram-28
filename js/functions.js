@@ -113,49 +113,54 @@ console.log(
 Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки. Если исходная строка превышает заданную длину, она не должна обрезаться. Если «добивка» слишком длинная, она обрезается с конца.
  */
 
+/**
+ *
+ * @param string
+ * @param targetLength
+ * @param filler
+ * @returns {string}
+ */
+const padStringBySubString = function (string, targetLength, filler) {
 
-const padStringBySubString = function (string, minLength, addition) {
-
-  /* Если строка достаточно длинная, то не делаем ничего */
-  if (string.length >= minLength) {
+  // Если проброшенная строка уже достаточно длинная, то не делаем вообще ничего
+  if (string.length >= targetLength) {
     return string;
   }
 
-  /* Иначе считаем сколько символов надо добавить */
-  const amountOfCharsToAdd = minLength - string.length;
+  // Иначе считаем сколько символов надо добавить
+  let amountOfCharsToAdd = targetLength - string.length;
 
-  /* И готовимся сформировать добавочную строку */
+  // И готовимся сформировать добавочную строку
   let stringOfCharsToAdd = '';
 
-  /* Возможны два сценария: предоставлено достаточно символов, чтобы дополнить строку, или нет */
+  // Может быть так, что для достижения цели по символам не хватает всего пары штук. В таком случае одного добавления филлера (или даже его части) будет достаточно.
+  // Но может быть и так, что прогнать филлер придётся многократно, чтобы дойти до этого состояния. Сначала это и делаем:
+  stringOfCharsToAdd = filler.repeat(Math.floor(amountOfCharsToAdd / filler.length));
 
-  /* 1) Если предоставлена достаточно большая строка-донор, то просто вырезаем из неё нужное количество символов */
-  if (addition.length >= amountOfCharsToAdd) {
-    stringOfCharsToAdd = addition.substring(0, amountOfCharsToAdd);
-  }
-  /* Иначе подачу символов из донора надо зациклить */
-  else {
-    stringOfCharsToAdd = addition.repeat(Math.floor(amountOfCharsToAdd / addition.length));
-    
-  }
+  // Заполнив основную массу пересчитываем сколь теперь осталось добавить символов
+  amountOfCharsToAdd = targetLength - string.length - stringOfCharsToAdd.length;
+
+  // Зная что одного филлера теперь уже точно будет достаточно добавляем нужную его часть. Причём добавляем начальную часть обрезав хвост.
+  stringOfCharsToAdd = filler.substring(0, amountOfCharsToAdd) + stringOfCharsToAdd;
 
   return stringOfCharsToAdd + string;
 };
 
+
 // Добавочный символ использован один раз (01)
-// console.log(
-//   padStringBySubString('1', 2, '0')
-// )
+console.log(
+  padStringBySubString('1', 2, '0')
+)
 
 // Добавочный символ использован три раза (0001)
-// console.log(
-//   padStringBySubString('1', 4, '0')
-// )
+console.log(
+  padStringBySubString('1', 4, '0')
+)
 
 // Добавочные символы обрезаны с конца (werq)
-// console.log(
-//   padStringBySubString('q', 4, 'werty')
-// )
+console.log(
+  padStringBySubString('q', 4, 'werty')
+)
 
 // Добавочные символы использованы полтора раза (wweq)
 console.log(
@@ -163,6 +168,6 @@ console.log(
 )
 
 // Добавочные символы не использованы, исходная строка не изменена (qwerty)
-// console.log(
-//   padStringBySubString('qwerty', 4, '0')
-// )
+console.log(
+  padStringBySubString('qwerty', 4, '0')
+)
