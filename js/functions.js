@@ -107,3 +107,67 @@ console.log(
 console.log(
   extractDigitsFromSting(1.5)         // 15
 )
+
+
+/*
+Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами — и возвращает исходную строку, дополненную указанными символами до заданной длины. Символы добавляются в начало строки. Если исходная строка превышает заданную длину, она не должна обрезаться. Если «добивка» слишком длинная, она обрезается с конца.
+ */
+
+
+const padStringBySubString = function (string, minLength, addition) {
+
+  /* Если строка достаточно длинная, то не делаем ничего */
+  if (string.length >= minLength) {
+    return string;
+  }
+
+  /* Иначе считаем сколько символов надо добавить */
+  const amountOfCharsToAdd = minLength - string.length;
+
+  /* И готовимся сформировать добавочную строку */
+  let stringOfCharsToAdd = '';
+
+  /* Возможны два сценария: предоставлено достаточно символов, чтобы дополнить строку, или нет */
+
+  /* 1) Если предоставлена достаточно большая строка-донор, то просто вырезаем из неё нужное количество символов */
+  if (addition.length >= amountOfCharsToAdd) {
+    stringOfCharsToAdd = addition.substring(0, amountOfCharsToAdd);
+  }
+  /* Иначе подачу символов из донора надо зациклить */
+  else {
+    /* Добавлять будем посимвольно. Символы будем отсчитывать. Для этого проще перевести строку в массив. */
+    const additionArray = addition.split('');
+
+    /* Внешний цикл отсчитывает добавку */
+    for (let i = 0; i < amountOfCharsToAdd; i++) {
+      stringOfCharsToAdd = 'u' + stringOfCharsToAdd;
+    }
+  }
+
+  return stringOfCharsToAdd + string;
+};
+
+// Добавочный символ использован один раз (01)
+console.log(
+  padStringBySubString('1', 2, '0')
+)
+
+// Добавочный символ использован три раза (0001)
+console.log(
+  padStringBySubString('1', 4, '0')
+)
+
+// Добавочные символы обрезаны с конца (werq)
+console.log(
+  padStringBySubString('q', 4, 'werty')
+)
+
+// Добавочные символы использованы полтора раза (wweq)
+console.log(
+  padStringBySubString('q', 4, 'we')
+)
+
+// Добавочные символы не использованы, исходная строка не изменена (qwerty)
+console.log(
+  padStringBySubString('qwerty', 4, '0')
+)
