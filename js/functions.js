@@ -38,6 +38,7 @@ console.log(
 
 const isPalindrome = function (string) {
   string = string.toLowerCase(); // Регистр на "палиндромность" не влияет
+  string = string.replace(/\s/g, ""); // Удаляем whitespace символы регуляркой "\s" так как они не влияют на палиндромность. Флаг "g" означает global -- удаляем их все
   return string === string.split('').reverse().join('');
 };
 
@@ -55,4 +56,9 @@ console.log(
 // Это не палиндром (false)
 console.log(
   isPalindrome('Кекс')
+)
+
+// Это палиндром, несмотря на пробелы (true)
+console.log(
+  isPalindrome('Лёша на полке клопа нашёл ')
 )
