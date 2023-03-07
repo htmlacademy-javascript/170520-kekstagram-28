@@ -32,23 +32,8 @@ const comments = [
 ];
 
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-
-const getIndexer = () => {
-  let index = 0;
-  return () => index++;
-};
-
-const photoIndexer = getIndexer();
-const commentIndexer = getIndexer();
+const photoIndexer = createIdGenerator();
+const commentIndexer = createIdGenerator();
 
 const createComment = () => {
   const index = commentIndexer(); // С каждым вызовом createComment() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
