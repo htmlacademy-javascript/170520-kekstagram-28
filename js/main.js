@@ -54,7 +54,7 @@ const createComment = () => {
   const index = commentIndexer(); // С каждым вызовом createComment() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
   return {
     'id': index,
-    'avatar': 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
+    'avatar': `img/avatar-${getRandomInteger(1, 6)}.svg`,
     'name': getRandomArrayElement(authors),
     'message': getRandomArrayElement(comments),
   };
@@ -64,7 +64,7 @@ const createPhoto = () => {
   const index = photoIndexer(); // С каждым вызовом createPhoto() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
   return {
     'id': index,
-    'url': 'photos/' + index + '.jpg',
+    'url': `photos/${index}.jpg`,
     'description': getRandomArrayElement(descriptions),
     'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
     'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
