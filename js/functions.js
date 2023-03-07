@@ -97,27 +97,3 @@ console.log( padStringBySubString('q', 4, 'werty') ); // Добавочные с
 console.log( padStringBySubString('q', 4, 'we') ); // Добавочные символы использованы полтора раза (wweq)
 console.log( padStringBySubString('qwerty', 4, '0') ); // Добавочные символы не использованы, исходная строка не изменена (qwerty)
 /* eslint-enable */
-
-
-/* Генерируем случайное целое число из заданного диапазона */
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-
-/* Получаем случайный элемент массива */
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-
-/* Фабрика счётчиков: генерируем функции для создания независимых счётчиков (например фотки, комменты и т.д.)
- * https://up.htmlacademy.ru/javascript/28/module/4/item/10
- * https://developer.mozilla.org/ru/docs/Web/JavaScript/Closures
- * https://up.htmlacademy.ru/javascript/28/demos/9873#7
- */
-const createIdGenerator = () => {
-  let lastGeneratedId = 0;
-  return () => lastGeneratedId++;
-};
