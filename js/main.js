@@ -42,27 +42,37 @@ const getRandomInteger = (a, b) => {
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 
-let currentCommentId = 0;
-let currentPhotoId = 0;
+const getIndexer = () => {
+  let index = 0;
+  return () => index++;
+};
 
+const photoIndexer = getIndexer();
+const commentIndexer = getIndexer();
 
-const createComment = () => ({
-  'id': currentCommentId++,
-  'avatar': 'img/avatar-'+ getRandomInteger(1, 6) +'.svg',
-  'name': getRandomArrayElement(authors),
-  'message': getRandomArrayElement(comments),
-});
+const createComment = () => {
+  const index = commentIndexer(); // С каждым вызовом createComment() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
+  return {
+    'id': index,
+    'avatar': 'img/avatar-' + getRandomInteger(1, 6) + '.svg',
+    'name': getRandomArrayElement(authors),
+    'message': getRandomArrayElement(comments),
+  };
+};
 
-const createPhoto = () => ({
-  'id': currentPhotoId++,
-  'url': 'photos/' + currentPhotoId + '.jpg',
-  'description': getRandomArrayElement(descriptions),
-  'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
-  'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
-});
+const createPhoto = () => {
+  const index = photoIndexer(); // С каждым вызовом createPhoto() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
+  return {
+    'id': index,
+    'url': 'photos/' + index + '.jpg',
+    'description': getRandomArrayElement(descriptions),
+    'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
+    'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
+  };
+};
 
 const gallery = Array.from({length: GALLERY_SIZE}, createPhoto);
 
-/* lint-disable */
+// eslint-disable-next-line
 console.log(gallery);
-/* lint-enable */
+
