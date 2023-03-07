@@ -47,21 +47,22 @@ let currentPhotoId = 0;
 
 
 const createComment = () => ({
-  id: currentCommentId++,
-  avatar: 'img/avatar-'+ getRandomInteger(1, 6) +'.svg',
-  name: getRandomArrayElement(authors),
-  message: getRandomArrayElement(comments),
+  'id': currentCommentId++,
+  'avatar': 'img/avatar-'+ getRandomInteger(1, 6) +'.svg',
+  'name': getRandomArrayElement(authors),
+  'message': getRandomArrayElement(comments),
 });
 
 const createPhoto = () => ({
-    'id': currentPhotoId++,
-    'url': 'photos/' + currentPhotoId + '.jpg',
-    'description': getRandomArrayElement(descriptions),
-    'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
-    'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
+  'id': currentPhotoId++,
+  'url': 'photos/' + currentPhotoId + '.jpg',
+  'description': getRandomArrayElement(descriptions),
+  'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
+  'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
 });
 
 const gallery = Array.from({length: GALLERY_SIZE}, createPhoto);
 
-
+/* lint-disable */
 console.log(gallery);
+/* lint-enable */
