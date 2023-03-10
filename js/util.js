@@ -2,9 +2,7 @@
  * Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true,
  * если строка меньше или равна указанной длине, и false, если строка длиннее
  */
-const isStringWithingMaxLength = function (string, maxLength) {
-  return string.length <= maxLength;
-};
+const isStringWithingMaxLength = (string, maxLength) => string.length <= maxLength;
 
 /* Примеры и тесты */
 /* eslint-disable */
@@ -18,7 +16,7 @@ console.log( isStringWithingMaxLength('проверяемая строка', 10)
  * Палиндром — это слово или фраза, которые одинаково читаются и слева направо и справа налево.
  * Регистр и whitespace-символы на палиндромность не влияют
  */
-const isPalindrome = function (string) {
+const isPalindrome = (string) => {
   string = string.toLowerCase(); // Регистр на "палиндромность" не влияет
   string = string.replace(/\s/g, ''); // Удаляем whitespace символы регуляркой "\s" так как они не влияют на палиндромность.
   return string === string.split('').reverse().join('');
@@ -37,7 +35,7 @@ console.log( isPalindrome('Лёша на полке клопа нашёл ') ); 
  * в виде целого положительного числа. Если в строке нет ни одной цифры, функция должна вернуть NaN.
  * В качестве аргумента принимаются и строки и числа. Последние всё-равно должны обрабатываться как строки.
  */
-const extractDigitsFromSting = function (string) {
+const extractDigitsFromSting = (string) => {
   string = string.toString(); /* Если пришёл тип данных Number, всё-равно работаем с ним как с числом */
   string = string.replace(/[^0-9]/g, ''); /* Удаляем всё, что не цифры 0-9 */
   return (string.length === 0) ? NaN : +string; // Здесь аккуратней с условием, может быть просто нолик и он валиден
@@ -62,7 +60,7 @@ console.log( extractDigitsFromSting(1.5) ); // Ожидаемый результ
  * Если исходная строка превышает заданную длину, она не должна обрезаться.
  * Если «добивка» слишком длинная, она обрезается с конца.
  */
-const padStringBySubString = function (string, targetLength, filler) {
+const padStringBySubString = (string, targetLength, filler) => {
 
   // Если проброшенная строка уже достаточно длинная, то не делаем вообще ничего
   if (string.length >= targetLength) {
