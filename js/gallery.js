@@ -4,7 +4,7 @@ const photoTemplate = document.querySelector('#picture').content.querySelector('
 const galleryAsFragment = document.createDocumentFragment();
 
 const formGalleryAsFragment = (gallery) => {
-  gallery.forEach( ({url, likes, comments}) => {
+  gallery.forEach(({url, likes, comments}) => {
     const $photo = photoTemplate.cloneNode(true);
     $photo.querySelector('.picture__img').src = url;
     $photo.querySelector('.picture__comments').innerText = comments.length;
@@ -12,6 +12,6 @@ const formGalleryAsFragment = (gallery) => {
     galleryAsFragment.append($photo);
   });
   return galleryAsFragment;
-}
+};
 
 export { formGalleryAsFragment };
