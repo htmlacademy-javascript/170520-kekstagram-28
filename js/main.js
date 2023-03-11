@@ -1,4 +1,6 @@
-import {createGallery} from './data.js';
-import {renderGallery} from './gallery.js';
+import {createDataForGallery} from './data.js';
+import {formGalleryAsFragment} from './gallery.js';
 
-renderGallery(createGallery());
+document.querySelector('.pictures').append(
+  formGalleryAsFragment(createDataForGallery(25))
+)

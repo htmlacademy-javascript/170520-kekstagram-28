@@ -1,6 +1,5 @@
 import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
 
-const GALLERY_SIZE = 25;
 const LIKES_MIN = 15;
 const LIKES_MAX = 200;
 const COMMENTS_MIN = 1;
@@ -58,6 +57,6 @@ const createPhoto = () => {
   };
 };
 
-const createGallery = () => Array.from({length: GALLERY_SIZE}, createPhoto);
+const createDataForGallery = (amount) => Array.from({length: amount}, createPhoto);
 
-export {createGallery};
+export {createDataForGallery};
