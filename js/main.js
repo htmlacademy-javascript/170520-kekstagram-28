@@ -1,7 +1,4 @@
 import {createGallery} from './data.js';
+import {renderGallery} from './gallery.js';
 
-// eslint-disable-next-line
-console.log(
-  createGallery()
-);
-
+renderGallery(createGallery());
