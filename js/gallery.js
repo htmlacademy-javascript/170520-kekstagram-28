@@ -5,11 +5,11 @@ const galleryAsFragment = document.createDocumentFragment();
 
 const formGalleryAsFragment = (gallery) => {
   gallery.forEach(({url, likes, comments}) => {
-    const $photo = photoTemplate.cloneNode(true);
-    $photo.querySelector('.picture__img').src = url;
-    $photo.querySelector('.picture__comments').innerText = comments.length;
-    $photo.querySelector('.picture__likes').innerText = likes;
-    galleryAsFragment.append($photo);
+    const photo = photoTemplate.cloneNode(true);
+    photo.querySelector('.picture__img').src = url;
+    photo.querySelector('.picture__comments').innerText = comments.length;
+    photo.querySelector('.picture__likes').innerText = likes;
+    galleryAsFragment.append(photo);
   });
   return galleryAsFragment;
 };
