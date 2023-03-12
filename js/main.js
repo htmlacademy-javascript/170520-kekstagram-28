@@ -1,7 +1,6 @@
-import {createGallery} from './data.js';
+import {createDataForGallery} from './data.js';
+import {formGalleryAsFragment} from './gallery.js';
 
-// eslint-disable-next-line
-console.log(
-  createGallery()
+document.querySelector('.pictures').append(
+  formGalleryAsFragment(createDataForGallery(25))
 );
-

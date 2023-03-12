@@ -1,6 +1,5 @@
 import { getRandomInteger, getRandomArrayElement, createIdGenerator } from './util.js';
 
-const GALLERY_SIZE = 25;
 const LIKES_MIN = 15;
 const LIKES_MAX = 200;
 const COMMENTS_MIN = 1;
@@ -51,13 +50,13 @@ const createPhoto = () => {
   const index = photoIndexer(); // С каждым вызовом createPhoto() важно однократно вызвать commentIndexer(). Заодно и сохранить в переменную для дальнейшего, возможно многократного, использования.
   return {
     'id': index,
-    'url': `photos/${index}.jpg`,
+    'url': `photos/${index + 1}.jpg`,
     'description': getRandomArrayElement(descriptions),
     'likes': getRandomInteger(LIKES_MIN, LIKES_MAX),
     'comments': Array.from({length: getRandomInteger(COMMENTS_MIN, COMMENTS_MAX)}, createComment),
   };
 };
 
-const createGallery = () => Array.from({length: GALLERY_SIZE}, createPhoto);
+const createDataForGallery = (amount) => Array.from({length: amount}, createPhoto);
 
-export {createGallery};
+export {createDataForGallery};
