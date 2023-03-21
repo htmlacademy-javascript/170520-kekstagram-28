@@ -120,4 +120,12 @@ const createIdGenerator = () => {
   return () => lastGeneratedId++;
 };
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator};
+
+/* Обработчики клавиатуры */
+
+const isEnterKey = (event) => event.key === 'Enter';
+const isEscapeKey = (event) => event.key === 'Escape';
+
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEnterKey, isEscapeKey};
+
