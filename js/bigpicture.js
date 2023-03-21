@@ -5,6 +5,7 @@ const initBigPicture = () => {
 
   const $picturesList = document.querySelectorAll('.picture');
   const $bigPicture = document.querySelector('.big-picture');
+  const $bigPictureCancel = document.querySelector('.big-picture__cancel');
 
   /* Открытие */
 
@@ -29,6 +30,16 @@ const initBigPicture = () => {
   const closeBigPicture = () => {
     $bigPicture.classList.add('hidden');
   }
+
+  $bigPictureCancel.addEventListener('click', () => {
+    closeBigPicture();
+  });
+
+  $bigPictureCancel.addEventListener('keydown', (event) => {
+    if( isEnterKey(event)) {
+      closeBigPicture();
+    }
+  });
 
   document.addEventListener('keydown', (event) => {
     if(isEscapeKey(event)) {
