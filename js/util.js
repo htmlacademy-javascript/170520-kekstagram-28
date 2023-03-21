@@ -123,9 +123,8 @@ const createIdGenerator = () => {
 
 /* Обработчики клавиатуры */
 
-const isEnterKey = (event) => event.key === 'Enter';
 const isEscapeKey = (event) => event.key === 'Escape';
 
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEnterKey, isEscapeKey};
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey};
 
