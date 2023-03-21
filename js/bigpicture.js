@@ -5,6 +5,7 @@ const initBigPicture = () => {
 
   const $picturesList = document.querySelectorAll('.picture');
   const $bigPicture = document.querySelector('.big-picture');
+  const $bigPictureImg = document.querySelector('.big-picture__img');
   const $bigPictureCancel = document.querySelector('.big-picture__cancel');
   const bigPicturePreview = 'big-picture__preview'; /* Содержимое внутри модалки, но не сама модалка, понадобится внутри target.closest() */
 
@@ -13,12 +14,6 @@ const initBigPicture = () => {
 
   const onBigPictureCrossClick = () => {
     closeBigPicture();
-  }
-
-  const onBigPictureCrossKeydown = () => {
-    if (isEnterKey(event)) {
-      closeBigPicture();
-    }
   }
 
   const onBigPictureOverlayClick = (event) => {
@@ -45,9 +40,8 @@ const initBigPicture = () => {
     /* Логика */
 
 
-    /* Обработчики закрытия */
+    /* Обработчики закрытия -- добавляем */
     $bigPictureCancel.addEventListener('click', onBigPictureCrossClick);
-    $bigPictureCancel.addEventListener('keydown', onBigPictureCrossKeydown);
     $bigPicture.addEventListener('click', onBigPictureOverlayClick);
     document.addEventListener('keydown', onDocumentKeydownToCloseBigPicture);
   }
@@ -63,9 +57,8 @@ const initBigPicture = () => {
     /* Логика */
 
 
-    /* Снятие обработчиков закрытия */
+    /* Обработчики закрытия -- снимаем */
     $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
-    $bigPictureCancel.removeEventListener('keydown', onBigPictureCrossKeydown);
     $bigPicture.removeEventListener('click', onBigPictureOverlayClick);
     document.removeEventListener('keydown', onDocumentKeydownToCloseBigPicture);
   }
