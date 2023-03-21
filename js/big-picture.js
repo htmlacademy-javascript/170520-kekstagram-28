@@ -1,9 +1,13 @@
 import {isEscapeKey} from './util.js';
 
 const $bigPicture = document.querySelector('.big-picture');
-const $bigPictureImg = document.querySelector('.big-picture__img');
 const $bigPictureCancel = document.querySelector('.big-picture__cancel');
 const bigPicturePreview = 'big-picture__preview'; /* Содержимое внутри модалки, но не сама модалка, понадобится внутри target.closest() */
+
+const $bigPictureImg = document.querySelector('.big-picture__img img');
+const $bigPictureLikesCount = document.querySelector('.likes-count');
+const $bigPictureCommentsCount = document.querySelector('.comments-count');
+
 
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -27,13 +31,15 @@ const onDocumentKeydownToCloseBigPicture = (event) => {
 
 /* Открытие модального окна */
 
-const openBigPicture = () => {
+const openBigPicture = (url, likes, comments) => {
 
   /* Непосредственно показ */
   $bigPicture.classList.remove('hidden');
 
   /* Логика */
-
+  $bigPictureImg.src = url;
+  $bigPictureLikesCount.innerText = likes;
+  $bigPictureCommentsCount.innerText = comments.length;
 
   /* Обработчики закрытия -- добавляем */
   $bigPictureCancel.addEventListener('click', onBigPictureCrossClick);
@@ -59,18 +65,5 @@ const closeBigPicture = () => {
 }
 
 
-/* Вешаем открытие BigPicture на превьюшки */
-const initBigPicture = () => {
-
-  const $picturesList = document.querySelectorAll('.picture');
-
-  [].forEach.call($picturesList, function (element) {
-    element.addEventListener('click', () => {
-      openBigPicture();
-    })
-  });
-
-};
-
-export {initBigPicture};
+export {openBigPicture};
 
