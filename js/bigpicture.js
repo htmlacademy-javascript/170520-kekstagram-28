@@ -6,6 +6,7 @@ const initBigPicture = () => {
   const $picturesList = document.querySelectorAll('.picture');
   const $bigPicture = document.querySelector('.big-picture');
   const $bigPictureCancel = document.querySelector('.big-picture__cancel');
+  const bigPicturePreview = 'big-picture__preview'; /* Содержимое внутри модалки, но не сама модалка, понадобится внутри target.closest() */
 
   /* Открытие */
 
@@ -41,12 +42,17 @@ const initBigPicture = () => {
     }
   });
 
+  $bigPicture.addEventListener('click', (event) => {
+    if( ! event.target.closest('.big-picture__preview') ) {
+      closeBigPicture();
+    }
+  });
+
   document.addEventListener('keydown', (event) => {
     if(isEscapeKey(event)) {
       closeBigPicture();
     }
   });
-
 
 
 };
