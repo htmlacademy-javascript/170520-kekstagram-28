@@ -21,6 +21,12 @@ const initBigPicture = () => {
     }
   }
 
+  const onBigPictureOverlayClick = (event) => {
+    if (!event.target.closest('.big-picture__preview')) {
+      closeBigPicture();
+    }
+  }
+
   const onDocumentKeydownToCloseBigPicture = (event) => {
     if (isEscapeKey(event)) {
       closeBigPicture();
@@ -28,42 +34,45 @@ const initBigPicture = () => {
   }
 
 
+
   /* Открытие модального окна */
 
   const openBigPicture = () => {
 
-    /* Показ */
+    /* Непосредственно показ */
     $bigPicture.classList.remove('hidden');
+
+    /* Логика */
 
 
     /* Обработчики закрытия */
     $bigPictureCancel.addEventListener('click', onBigPictureCrossClick);
     $bigPictureCancel.addEventListener('keydown', onBigPictureCrossKeydown);
+    $bigPicture.addEventListener('click', onBigPictureOverlayClick);
     document.addEventListener('keydown', onDocumentKeydownToCloseBigPicture);
-
-    $bigPicture.addEventListener('click', (event) => {
-      if (!event.target.closest('.big-picture__preview')) {
-        closeBigPicture();
-      }
-    });
-
   }
 
 
   /* Закрытие модального окна */
 
   const closeBigPicture = () => {
+
+    /* Непосредственно скрытие */
     $bigPicture.classList.add('hidden');
+
+    /* Логика */
+
 
     /* Снятие обработчиков закрытия */
     $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
     $bigPictureCancel.removeEventListener('keydown', onBigPictureCrossKeydown);
+    $bigPicture.removeEventListener('click', onBigPictureOverlayClick);
     document.removeEventListener('keydown', onDocumentKeydownToCloseBigPicture);
   }
 
 
 
-
+  /* Вешаем открытие BigPicture на превьюшки */
 
   [].forEach.call($picturesList, function (element) {
     element.addEventListener('click', () => {
