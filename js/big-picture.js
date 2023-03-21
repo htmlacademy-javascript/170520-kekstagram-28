@@ -25,7 +25,6 @@ const onDocumentKeydownToCloseBigPicture = (event) => {
 }
 
 
-
 /* Открытие модального окна */
 
 const openBigPicture = () => {
@@ -58,7 +57,6 @@ const closeBigPicture = () => {
   $bigPicture.removeEventListener('click', onBigPictureOverlayClick);
   document.removeEventListener('keydown', onDocumentKeydownToCloseBigPicture);
 }
-
 
 
 /* Вешаем открытие BigPicture на превьюшки */
