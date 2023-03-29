@@ -1,4 +1,5 @@
 import {isEscapeKey} from './util.js';
+import {formCommentsAsFragment} from './comments.js';
 
 const $body = document.querySelector('body');
 const $bigPicture = document.querySelector('.big-picture');
@@ -50,9 +51,10 @@ const openBigPicture = (galleryItem) => {
   $bigPictureCommentsCount.innerText = galleryItem.comments.length;
   $bigPictureDescription.innerText = galleryItem.description;
 
-  galleryItem.comments.forEach((comment) => {
-    $bigPictureComments.append(comment.message);
-  });
+  $bigPictureComments.innerHTML = ''; /* Удаляем захардкоженные комментарии в вёрстке */
+  $bigPictureComments.append(
+    formCommentsAsFragment(galleryItem.comments)
+  )
 
 
   console.log(galleryItem.comments)
