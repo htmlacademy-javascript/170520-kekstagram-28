@@ -42,18 +42,19 @@ const openBigPicture = (galleryItem) => {
   $bigPictureAllCommentsCount.classList.add('hidden'); /* Временно скрываем, позже сделаем загрузку комментов */
   $bigPictureCommentsLoader.classList.add('hidden'); /* Временно скрываем, позже сделаем загрузку комментов */
 
-  /* Логика */
+  /* Логика: картинка */
   $bigPictureImg.src = galleryItem.url;
   $bigPictureLikesCount.innerText = galleryItem.likes;
   $bigPictureCommentsCount.innerText = galleryItem.comments.length;
   $bigPictureDescription.innerText = galleryItem.description;
 
-  $bigPictureComments.innerHTML = ''; /* Удаляем захардкоженные комментарии в вёрстке */
+  /* Логика: комментарии */
+  $bigPictureComments.innerHTML = ''; /* Удаляем захардкоденные комментарии в вёрстке */
   $bigPictureComments.append(
     formCommentsAsFragment(galleryItem.comments)
   );
 
-  /* Обработчики закрытия -- добавляем */
+  /* Обработчики закрытия: добавляем */
   $bigPictureCancel.addEventListener('click', onBigPictureCrossClick);
   $bigPicture.addEventListener('click', onBigPictureOverlayClick);
   document.addEventListener('keydown', onDocumentKeydownToCloseBigPicture);
@@ -73,7 +74,7 @@ const closeBigPicture = () => {
   /* Логика */
   /* В процессе */
 
-  /* Обработчики закрытия -- снимаем */
+  /* Обработчики закрытия: снимаем */
   $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
   $bigPicture.removeEventListener('click', onBigPictureOverlayClick);
   document.removeEventListener('keydown', onDocumentKeydownToCloseBigPicture);
