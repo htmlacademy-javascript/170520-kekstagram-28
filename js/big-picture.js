@@ -16,17 +16,20 @@ const $bigPictureCommentsLoader = document.querySelector('.comments-loader');
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
 
 const onBigPictureCrossClick = () => {
+  // eslint-disable-next-line
   closeBigPicture();
 };
 
 const onBigPictureOverlayClick = (event) => {
   if (!event.target.closest('.big-picture__preview')) {
+    // eslint-disable-next-line
     closeBigPicture();
   }
 };
 
 const onDocumentKeydownToCloseBigPicture = (event) => {
   if (isEscapeKey(event)) {
+    // eslint-disable-next-line
     closeBigPicture();
   }
 };
@@ -72,7 +75,7 @@ const closeBigPicture = () => {
   $bigPictureCommentsLoader.classList.remove('hidden'); /* Временно скрывали, позже, возможно что-то нужно будет делать с этим элементом */
 
   /* Логика */
-  /* В процессе */
+  /* Нужно ли что-то удалять? */
 
   /* Обработчики закрытия: снимаем */
   $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
