@@ -2,7 +2,7 @@
 import {openBigPicture} from './big-picture.js';
 
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
-  const galleryAsFragment = document.createDocumentFragment();
+const galleryAsFragment = document.createDocumentFragment();
 
 const formGalleryAsFragment = (gallery) => {
   gallery.forEach((galleryItem) => {
