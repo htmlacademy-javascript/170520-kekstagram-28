@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 
+const $body = document.querySelector('body');
 const $bigPicture = document.querySelector('.big-picture');
 const $bigPictureCancel = document.querySelector('.big-picture__cancel');
 const bigPicturePreview = 'big-picture__preview'; /* Содержимое внутри модалки, но не сама модалка, понадобится внутри target.closest() */
@@ -10,6 +11,8 @@ const $bigPictureLikesCount = document.querySelector('.likes-count');
 const $bigPictureCommentsCount = document.querySelector('.comments-count');
 const $bigPictureDescription = document.querySelector('.social__caption');
 const $bigPictureComments = document.querySelector('.social__comments');
+const $bigPictureAllCommentsCount = document.querySelector('.social__comment-count');
+const $bigPictureCommentsLoader = document.querySelector('.comments-loader');
 
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -37,6 +40,9 @@ const openBigPicture = (galleryItem) => {
 
   /* Непосредственно показ */
   $bigPicture.classList.remove('hidden');
+  $body.classList.add('modal-open');
+  $bigPictureAllCommentsCount.classList.add('hidden'); /* Временно скрываем, позже сделаем загрузку комментов */
+  $bigPictureCommentsLoader.classList.add('hidden'); /* Временно скрываем, позже сделаем загрузку комментов */
 
   /* Логика */
   $bigPictureImg.src = galleryItem.url;
@@ -65,6 +71,9 @@ const closeBigPicture = () => {
 
   /* Непосредственно скрытие */
   $bigPicture.classList.add('hidden');
+  $body.classList.remove('modal-open');
+  $bigPictureAllCommentsCount.classList.remove('hidden'); /* Временно скрывали, позже, возможно что-то нужно будет делать с этим элементом */
+  $bigPictureCommentsLoader.classList.remove('hidden'); /* Временно скрывали, позже, возможно что-то нужно будет делать с этим элементом */
 
   /* Логика */
   /* В процессе */
