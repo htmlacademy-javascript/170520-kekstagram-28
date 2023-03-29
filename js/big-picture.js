@@ -4,10 +4,12 @@ const $bigPicture = document.querySelector('.big-picture');
 const $bigPictureCancel = document.querySelector('.big-picture__cancel');
 const bigPicturePreview = 'big-picture__preview'; /* Содержимое внутри модалки, но не сама модалка, понадобится внутри target.closest() */
 
+
 const $bigPictureImg = document.querySelector('.big-picture__img img');
 const $bigPictureLikesCount = document.querySelector('.likes-count');
 const $bigPictureCommentsCount = document.querySelector('.comments-count');
-
+const $bigPictureDescription = document.querySelector('.social__caption');
+const $bigPictureComments = document.querySelector('.social__comments');
 
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -31,15 +33,24 @@ const onDocumentKeydownToCloseBigPicture = (event) => {
 
 /* Открытие модального окна */
 
-const openBigPicture = (url, likes, comments) => {
+const openBigPicture = (galleryItem) => {
 
   /* Непосредственно показ */
   $bigPicture.classList.remove('hidden');
 
   /* Логика */
-  $bigPictureImg.src = url;
-  $bigPictureLikesCount.innerText = likes;
-  $bigPictureCommentsCount.innerText = comments.length;
+  $bigPictureImg.src = galleryItem.url;
+  $bigPictureLikesCount.innerText = galleryItem.likes;
+  $bigPictureCommentsCount.innerText = galleryItem.comments.length;
+  $bigPictureDescription.innerText = galleryItem.description;
+
+  galleryItem.comments.forEach((comment) => {
+    $bigPictureComments.append(comment.message);
+  });
+
+
+  console.log(galleryItem.comments)
+  /* В процессе */
 
   /* Обработчики закрытия -- добавляем */
   $bigPictureCancel.addEventListener('click', onBigPictureCrossClick);
@@ -56,7 +67,7 @@ const closeBigPicture = () => {
   $bigPicture.classList.add('hidden');
 
   /* Логика */
-
+  /* В процессе */
 
   /* Обработчики закрытия -- снимаем */
   $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
