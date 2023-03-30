@@ -126,5 +126,11 @@ const createIdGenerator = () => {
 const isEscapeKey = (event) => event.key === 'Escape';
 
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey};
+/* Есть ли в массиве дубликаты */
+function hasDuplicates(array) {
+  return (new Set(array)).size !== array.length;
+}
+
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};
 
