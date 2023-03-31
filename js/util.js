@@ -127,9 +127,7 @@ const isEscapeKey = (event) => event.key === 'Escape';
 
 
 /* Есть ли в массиве дубликаты */
-const hasDuplicates = (array) => {
-  return array ? (new Set(array)).size !== array.length : null;
-}
+const hasDuplicates = (array) => array ? (new Set(array)).size !== array.length : null;
 
 
 export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};

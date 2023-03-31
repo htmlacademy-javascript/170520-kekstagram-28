@@ -75,4 +75,4 @@ const $description = document.querySelector('.text__description');
       event.stopPropagation();
     }
   });
-})
+});

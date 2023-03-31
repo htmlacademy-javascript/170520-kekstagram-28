@@ -25,11 +25,11 @@ const pristine = new Pristine($imgUploadForm, {
 
 pristine.addValidator($hashtags, function (hashtags) {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if ( ! hashtagsAsArray) {
+  if (!hashtagsAsArray) {
     return true;
   }
   return !hasDuplicates(hashtagsAsArray);
-}, "В хештегах имеются дубликаты");
+}, 'В хештегах имеются дубликаты');
 
 
 /* Ещё одно правило для тегов */
@@ -40,7 +40,7 @@ pristine.addValidator($hashtags, function (hashtags) {
     return true;
   }
   return hashtagsAsArray.length <= 5;
-}, "Хештегов не может быть больше пяти");
+}, 'Хештегов не может быть больше пяти');
 
 
 /* Ещё одно правило для тегов */
@@ -60,7 +60,7 @@ pristine.addValidator($hashtags, function (hashtags) {
   });
   return flagIfError;
 
-}, "Неверный формат");
+}, 'Неверный формат');
 
 
 /* Инициализируем валидацию во время отправки формы */
@@ -68,13 +68,16 @@ pristine.addValidator($hashtags, function (hashtags) {
 $imgUploadForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  let isFormValid = pristine.validate();
+  const isFormValid = pristine.validate();
 
+  /* eslint-disable no-alert */
   if (isFormValid) {
     alert('Можно отправлять');
   } else {
     alert('Форма невалидна');
   }
+  /* eslint-enable no-alert */
+
 });
 
 
