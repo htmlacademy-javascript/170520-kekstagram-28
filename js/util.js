@@ -128,13 +128,13 @@ const isEscapeKey = (event) => event.key === 'Escape';
 
 /* Есть ли в массиве дубликаты */
 const hasDuplicates = (array) => {
-  return (new Set(array)).size !== array.length;
+  return array ? (new Set(array)).size !== array.length : null;
 }
 
-/* С хэштэгами гораздо удобнее работать когда они представлены в виде массива */
+/* С хештэгами гораздо удобнее работать, когда они представлены в виде массива: */
 const hashtagsToArray = (hashtags) => {
-  hashtags = hashtags.replace(/\s+/g, ' ').trim();
-  return hashtags.split(' ');
+  hashtags = hashtags.replace(/\s+/g, ' ').trim(); // Разрешаем пользователю оставлять лишние пробелы
+  return hashtags.length ? hashtags.split(' ') : null; // Если после удаления пробелов в строке осталсь данные, то возвращаем её в виде массива
 };
 
 
