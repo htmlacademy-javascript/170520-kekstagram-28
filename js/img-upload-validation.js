@@ -21,9 +21,7 @@ const pristine = new Pristine($imgUploadForm, {
 }, false);
 
 
-/* Ещё одно правило для тегов */
-
-pristine.addValidator($hashtags, function (hashtags) {
+pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
   if (!hashtagsAsArray) {
     return true;
@@ -32,9 +30,7 @@ pristine.addValidator($hashtags, function (hashtags) {
 }, 'В хештегах имеются дубликаты');
 
 
-/* Ещё одно правило для тегов */
-
-pristine.addValidator($hashtags, function (hashtags) {
+pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
   if (!hashtagsAsArray) {
     return true;
@@ -43,9 +39,7 @@ pristine.addValidator($hashtags, function (hashtags) {
 }, 'Хештегов не может быть больше пяти');
 
 
-/* Ещё одно правило для тегов */
-
-pristine.addValidator($hashtags, function (hashtags) {
+pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
   if (!hashtagsAsArray) {
     return true;
