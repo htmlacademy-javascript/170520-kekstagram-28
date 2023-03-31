@@ -131,12 +131,6 @@ const hasDuplicates = (array) => {
   return array ? (new Set(array)).size !== array.length : null;
 }
 
-/* С хештэгами гораздо удобнее работать, когда они представлены в виде массива: */
-const hashtagsToArray = (hashtags) => {
-  hashtags = hashtags.replace(/\s+/g, ' ').trim(); // Разрешаем пользователю оставлять лишние пробелы
-  return hashtags.length ? hashtags.split(' ') : null; // Если после удаления пробелов в строке осталсь данные, то возвращаем её в виде массива
-};
 
-
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates, hashtagsToArray};
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};
 
