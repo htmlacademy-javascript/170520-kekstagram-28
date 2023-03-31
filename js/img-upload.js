@@ -1,69 +1,61 @@
-import {hasDuplicates} from './util.js';
+import {isEscapeKey} from './util.js';
 
-const $imgUploadForm = document.querySelector('.img-upload__form');
-const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
+const $body = document.querySelector('body');
+const $uploadFile = document.querySelector('#upload-file');
+const $imgUploadOverlay = document.querySelector('.img-upload__overlay');
+const $imgUploadCancel = document.querySelector('.img-upload__cancel');
 
 
-/* С хештэгами гораздо удобнее работать, когда они представлены в виде массива: */
-const hashtagsToTrimmedArray = (hashtags) => {
-  hashtags = hashtags.replace(/\s+/g, ' ').trim(); // Разрешаем пользователю оставлять лишние пробелы
-  return hashtags.length ? hashtags.split(' ') : null; // Если после удаления пробелов в строке осталсь данные, то возвращаем её в виде массива
+/* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
+/* eslint-disable no-use-before-define */
+const onImgUploadCrossClick = () => {
+  closeImgUpload();
+};
+
+const onImgUploadOverlayClick = (event) => {
+  if (!event.target.closest('.img-upload__inner-wrapper')) {
+    closeImgUpload();
+  }
+};
+
+const onDocumentKeydownToCloseImgUpload = (event) => {
+  if (isEscapeKey(event)) {
+    closeImgUpload();
+  }
+};
+/* eslint-enable */
+
+
+/* Открытие модального окна */
+
+const openImgUpload = () => {
+
+  /* Непосредственно показ */
+  $imgUploadOverlay.classList.remove('hidden');
+  $body.classList.add('modal-open');
+
+  /* Обработчики закрытия: добавляем */
+  $imgUploadCancel.addEventListener('click', onImgUploadCrossClick);
+  $imgUploadOverlay.addEventListener('click', onImgUploadOverlayClick);
+  document.addEventListener('keydown', onDocumentKeydownToCloseImgUpload);
 };
 
 
-/* Инициализация библиотеки pristine */
-const pristine = new Pristine($imgUploadForm, {
-  classTo:         'img-upload__field-wrapper',
-  errorTextParent: 'img-upload__field-wrapper',
-  errorClass:      'img-upload__field-wrapper--error',
-  errorTextClass:  'img-upload__error-output',
-}, false);
+/* Закрытие модального окна */
+
+const closeImgUpload = () => {
+
+  /* Непосредственно скрытие */
+  $imgUploadOverlay.classList.add('hidden');
+  $body.classList.remove('modal-open');
+
+  /* Обработчики закрытия: снимаем */
+  $imgUploadCancel.removeEventListener('click', onImgUploadCrossClick);
+  $imgUploadOverlay.removeEventListener('click', onImgUploadOverlayClick);
+  document.removeEventListener('keydown', onDocumentKeydownToCloseImgUpload);
+};
 
 
-pristine.addValidator($hashtags, function (hashtags) {
-  const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if ( ! hashtagsAsArray) {
-    return true;
-  }
-  return !hasDuplicates(hashtagsAsArray);
-}, "В хештегах имеются дубликаты");
-
-pristine.addValidator($hashtags, function (hashtags) {
-  const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-  return hashtagsAsArray.length <= 5;
-}, "Хештегов не может быть больше пяти");
-
-pristine.addValidator($hashtags, function (hashtags) {
-  const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-
-  let flagIfError = true;
-  const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
-  hashtagsAsArray.forEach((hashtag) => {
-    if (!hashtagRegExp.test(hashtag)) {
-      flagIfError = false;
-    }
-  });
-  return flagIfError;
-
-}, "Неверный формат");
-
-
-$imgUploadForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  let isFormValid = pristine.validate();
-
-  if (isFormValid) {
-    console.log('Можно отправлять');
-  } else {
-    console.log('Форма невалидна');
-  }
-});
-
+/* Инициализация загрузки изображения */
+$uploadFile.addEventListener('change', openImgUpload);
 
