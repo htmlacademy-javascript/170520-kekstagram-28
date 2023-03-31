@@ -4,6 +4,7 @@ const $body = document.querySelector('body');
 const $uploadFile = document.querySelector('#upload-file');
 const $imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const $imgUploadCancel = document.querySelector('.img-upload__cancel');
+const $imgUploadForm = document.querySelector('.img-upload__form');
 
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -48,6 +49,9 @@ const closeImgUpload = () => {
   /* Непосредственно скрытие */
   $imgUploadOverlay.classList.add('hidden');
   $body.classList.remove('modal-open');
+
+  /* Логика: резетим форму */
+  $imgUploadForm.reset();
 
   /* Обработчики закрытия: снимаем */
   $imgUploadCancel.removeEventListener('click', onImgUploadCrossClick);

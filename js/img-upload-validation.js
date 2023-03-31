@@ -63,15 +63,17 @@ pristine.addValidator($hashtags, function (hashtags) {
 }, "Неверный формат");
 
 
+/* Инициализируем валидацию во время отправки формы */
+
 $imgUploadForm.addEventListener('submit', (event) => {
   event.preventDefault();
 
   let isFormValid = pristine.validate();
 
   if (isFormValid) {
-    console.log('Можно отправлять');
+    alert('Можно отправлять');
   } else {
-    console.log('Форма невалидна');
+    alert('Форма невалидна');
   }
 });
 
