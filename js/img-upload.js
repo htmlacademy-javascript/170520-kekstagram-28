@@ -63,3 +63,16 @@ const closeImgUpload = () => {
 /* Инициализация загрузки изображения */
 $uploadFile.addEventListener('change', openImgUpload);
 
+
+/* Отмена Esc во время печати */
+
+const $hashtags = document.querySelector('.text__hashtags');
+const $description = document.querySelector('.text__description');
+
+[$hashtags, $description].forEach((element) => {
+  element.addEventListener('keydown', (event) => {
+    if (isEscapeKey(event)) {
+      event.stopPropagation();
+    }
+  });
+})
