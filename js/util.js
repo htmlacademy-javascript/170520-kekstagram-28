@@ -127,10 +127,16 @@ const isEscapeKey = (event) => event.key === 'Escape';
 
 
 /* Есть ли в массиве дубликаты */
-function hasDuplicates(array) {
+const hasDuplicates = (array) => {
   return (new Set(array)).size !== array.length;
 }
 
+/* С хэштэгами гораздо удобнее работать когда они представлены в виде массива */
+const hashtagsToArray = (hashtags) => {
+  hashtags = hashtags.replace(/\s+/g, ' ').trim();
+  return hashtags.split(' ');
+};
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates, hashtagsToArray};
 
