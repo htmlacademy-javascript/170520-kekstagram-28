@@ -367,6 +367,34 @@ main {
 }
 
 
+.img-upload__field-wrapper--error input,
+.img-upload__field-wrapper--error textarea {
+  background-color: #FF9B9B;
+  border-color: #e90000;
+}
+
+.img-upload__error-output {
+  width: 450px;
+  margin: 0 auto;
+  font-size: 14px;
+  color: #e90000;
+  text-align: left;
+  text-transform: none;
+}
+
+.img-upload__error-output + .img-upload__error-output {
+  margin-top: 4px;
+}
+
+
+.text__hashtags + .img-upload__error-output {
+  margin-top: -20px;
+}
+
+.text__hashtags ~ .img-upload__error-output:last-child {
+  margin-bottom: 20px;
+}
+
 /* Окно для редактирования изображения
    ========================================================================== */
 
@@ -670,7 +698,7 @@ main {
 
 
 /**
- * Блок добавления хэштегов и комментария к изображению
+ * Блок добавления хештегов и комментария к изображению
  */
 
 .text {
@@ -1341,7 +1369,7 @@ main {
 
 @media (min-width: 1024px) {
   .img-upload__wrapper {
-    padding-bottom: 0;
+    padding-bottom: 60px;
   }
 }
 

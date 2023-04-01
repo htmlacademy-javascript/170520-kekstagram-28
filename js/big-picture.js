@@ -14,25 +14,23 @@ const $bigPictureCommentsLoader = document.querySelector('.comments-loader');
 
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
-
+/* eslint-disable no-use-before-define */
 const onBigPictureCrossClick = () => {
-  // eslint-disable-next-line
   closeBigPicture();
 };
 
 const onBigPictureOverlayClick = (event) => {
   if (!event.target.closest('.big-picture__preview')) {
-    // eslint-disable-next-line
     closeBigPicture();
   }
 };
 
 const onDocumentKeydownToCloseBigPicture = (event) => {
   if (isEscapeKey(event)) {
-    // eslint-disable-next-line
     closeBigPicture();
   }
 };
+/* eslint-enable */
 
 
 /* Открытие модального окна */
@@ -74,8 +72,7 @@ const closeBigPicture = () => {
   $bigPictureAllCommentsCount.classList.remove('hidden'); /* Временно скрывали, позже, возможно что-то нужно будет делать с этим элементом */
   $bigPictureCommentsLoader.classList.remove('hidden'); /* Временно скрывали, позже, возможно что-то нужно будет делать с этим элементом */
 
-  /* Логика */
-  /* Нужно ли что-то удалять? */
+  /* Здесь могло бы быть удаление логики, но повторное открытие модалки всё-равно перезапишет всё внутри. Ничего не делаем. */
 
   /* Обработчики закрытия: снимаем */
   $bigPictureCancel.removeEventListener('click', onBigPictureCrossClick);
