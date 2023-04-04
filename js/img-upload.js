@@ -13,8 +13,19 @@ const minZoom = 25;
 const zoomStep = 25;
 const $scaleUp = document.querySelector('.scale__control--bigger');
 const $scaleDown = document.querySelector('.scale__control--smaller');
-const filters = document.querySelectorAll('.effects__radio');
+const $filters = document.querySelectorAll('.effects__radio');
 let currentFilter;
+const cssFilters = {
+  'chrome': 'grayscale',
+  'sepia': 'sepia',
+  'marvin': 'invert',
+  'phobos': 'blur',
+  'heat': 'brightness'
+};
+
+const $imgUploadSlider = document.querySelector('.img-upload__effect-level');
+const $slider = document.querySelector('.effect-level__slider');
+const $sliderValue = document.querySelector('.effect-level__value');
 
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
@@ -29,6 +40,14 @@ const applyZoom = (value) => {
     $scaleDown.disabled = false;
     $scaleUp.disabled = false;
   }
+};
+
+const showSlider = () => {
+  $imgUploadSlider.classList.add('img-upload__effect-level--visible');
+};
+
+const hideSlider = () => {
+  $imgUploadSlider.classList.remove('img-upload__effect-level--visible');
 };
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -64,7 +83,7 @@ const onClickToScaleControlUp = () => {
 };
 
 const onFilterChange = () => {
-  filters.forEach((filter) => {
+  $filters.forEach((filter) => {
     if (filter.checked) {
       currentFilter = filter.value;
     }
@@ -76,8 +95,122 @@ const onFilterChange = () => {
     $userImage.classList.remove(className);
   });
 
-  /* Добавляем выбранный */
+  /* Добавляем выбранный класс на фотку */
   $userImage.classList.add(`effects__preview--${currentFilter}`);
+
+  /* Обновляем слайдер под выбранный фильтр */
+  if (currentFilter === 'none') {
+    hideSlider();
+    $sliderValue.value = '';
+    $userImage.style.filter = 'none';
+  }
+  if (currentFilter === 'chrome') {
+    showSlider();
+    $slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+      format: {
+        to: function (value) {
+          if (Number.isInteger(value)) {
+            return value.toFixed(0);
+          }
+          return value.toFixed(1);
+        },
+        from: function (value) {
+          return parseFloat(value);
+        }
+      }
+    });
+  }
+  if (currentFilter === 'sepia') {
+    showSlider();
+    $slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1,
+      },
+      start: 1,
+      step: 0.1,
+      format: {
+        to: function (value) {
+          if (Number.isInteger(value)) {
+            return value.toFixed(0);
+          }
+          return value.toFixed(1);
+        },
+        from: function (value) {
+          return parseFloat(value);
+        }
+      }
+    });
+  }
+  if (currentFilter === 'marvin') {
+    showSlider();
+    $slider.noUiSlider.updateOptions({
+      range: {
+        min: 1,
+        max: 100
+      },
+      start: 100,
+      step: 1,
+      format: {
+        to: function (value) {
+          return `${value.toFixed()}%`;
+        },
+        from: function (value) {
+          return parseFloat(value);
+        }
+      }
+    });
+  }
+  if (currentFilter === 'phobos') {
+    showSlider();
+    $slider.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 3
+      },
+      start: 3,
+      step: 0.1,
+      format: {
+        to: function (value) {
+          if (Number.isInteger(value)) {
+            return `${value.toFixed(0)}px`;
+          }
+          return `${value.toFixed(1)}px`;
+        },
+        from: function (value) {
+          return parseFloat(value);
+        }
+      }
+    });
+  }
+  if (currentFilter === 'heat') {
+    showSlider();
+    $slider.noUiSlider.updateOptions({
+      range: {
+        min: 1,
+        max: 3
+      },
+      start: 3,
+      step: 0.1,
+      format: {
+        to: function (value) {
+          if (Number.isInteger(value)) {
+            return value.toFixed(0);
+          }
+          return value.toFixed(1);
+        },
+        from: function (value) {
+          return parseFloat(value);
+        }
+      }
+    });
+  }
 
 };
 /* eslint-enable */
@@ -97,11 +230,31 @@ const openImgUpload = () => {
   $scaleDown.addEventListener('click', onClickToScaleControlDown);
   $scaleUp.addEventListener('click', onClickToScaleControlUp);
 
-  filters.forEach((filter) => {
-    filter.addEventListener('change', onFilterChange);
+
+  /* Создаём дефолтный слайдер. Значения сейчас не важны */
+  noUiSlider.create($slider, {
+    range: {
+      min: 0,
+      max: 100,
+    },
+    start: 1,
+    step: 1,
+    connect: 'lower'
+  });
+
+  /* Связываем его со скрытым полем и применяем эффект на изображение */
+  $slider.noUiSlider.on('update', () => {
+    $sliderValue.value = $slider.noUiSlider.get();
+    $userImage.style.filter = `${cssFilters[currentFilter]}(${$slider.noUiSlider.get()})`;
   });
 
 
+  /* Фильтры */
+  $filters.forEach((filter) => {
+    filter.addEventListener('change', onFilterChange);
+  });
+
+  onFilterChange(); /* Вызываем сразу же, один раз, чтобы применить текущие правила выбранного в HTML фильтра. */
 
   /* Обработчики закрытия: добавляем */
   $imgUploadCancel.addEventListener('click', onImgUploadCrossClick);
@@ -123,14 +276,15 @@ const closeImgUpload = () => {
   $scaleDown.removeEventListener('click', onImgUploadCrossClick);
   $scaleUp.removeEventListener('click', onClickToScaleControlUp);
 
-  filters.forEach((filter) => {
+  $filters.forEach((filter) => {
     filter.removeEventListener('change', onFilterChange);
   });
 
   /* Резетим форму при закрытии */
   $imgUploadForm.reset();
   $userImage.classList.remove(`effects__preview--${currentFilter}`);
-
+  $slider.noUiSlider.destroy();
+  hideSlider();
 
   /* Обработчики закрытия: снимаем */
   $imgUploadCancel.removeEventListener('click', onImgUploadCrossClick);

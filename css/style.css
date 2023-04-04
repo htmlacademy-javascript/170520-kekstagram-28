@@ -600,6 +600,18 @@ main {
   background: #ffe753;
 }
 
+.img-upload__effect-level {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease,
+              visibility 0.2s ease;
+}
+
+.img-upload__effect-level--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 .effect-level__value {
   display: none;
 }
