@@ -18,7 +18,7 @@ let currentFilter;
 
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
-  $scaleValue.value = value + '%';
+  $scaleValue.value = `${value} + '%'`;
   if (value === maxZoom) {
     $scaleUp.disabled = true;
     $scaleDown.disabled = false;
@@ -64,22 +64,22 @@ const onClickToScaleControlUp = () => {
 };
 
 const onFilterChange = () => {
-  filters.forEach( (filter) => {
+  filters.forEach((filter) => {
     if (filter.checked) {
       currentFilter = filter.value;
     }
   });
 
   /* Удаляем все классы начинающиеся с effects__preview-- */
-  const classesToRemove = Array.from($userImage.classList).filter(className => className.startsWith("effects__preview--"));
-  classesToRemove.forEach(className => {
+  const classesToRemove = Array.from($userImage.classList).filter((className) => className.startsWith('effects__preview--'));
+  classesToRemove.forEach((className) => {
     $userImage.classList.remove(className);
   });
 
   /* Добавляем выбранный */
   $userImage.classList.add(`effects__preview--${currentFilter}`);
 
-}
+};
 /* eslint-enable */
 
 
