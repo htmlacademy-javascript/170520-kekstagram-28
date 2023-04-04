@@ -22,7 +22,7 @@ const pristine = new Pristine($imgUploadForm, {
 }, false);
 
 
-/* Добавляем свои катомные правила на валидацию тегов */
+/* Добавляем кастомные правила на валидацию тегов */
 
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
