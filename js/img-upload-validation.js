@@ -2,6 +2,7 @@ import {hasDuplicates} from './util.js';
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
+const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
 
 
 /* С хештэгами гораздо удобнее работать, когда они представлены в виде массива: */
@@ -21,33 +22,21 @@ const pristine = new Pristine($imgUploadForm, {
 }, false);
 
 
+/* Добавляем свои катомные правила на валидацию тегов */
+
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
   return !hashtagsAsArray || !hasDuplicates(hashtagsAsArray);
 }, 'В хештегах имеются дубликаты');
-
 
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
   return !hashtagsAsArray || hashtagsAsArray.length <= 5;
 }, 'Хештегов не может быть больше пяти');
 
-
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-
-  const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
-
-  function isTagValid(hashtag) {
-    return hashtagRegExp.test(hashtag)
-  }
-
-  return hashtagsAsArray.every(isTagValid);
-
-
+  return !hashtagsAsArray || hashtagsAsArray.every((hashtag) => hashtagRegExp.test(hashtag));
 }, 'Неверный формат');
 
 
