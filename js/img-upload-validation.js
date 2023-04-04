@@ -23,19 +23,13 @@ const pristine = new Pristine($imgUploadForm, {
 
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-  return !hasDuplicates(hashtagsAsArray);
+  return !hashtagsAsArray || !hasDuplicates(hashtagsAsArray);
 }, 'В хештегах имеются дубликаты');
 
 
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-  return hashtagsAsArray.length <= 5;
+  return !hashtagsAsArray || hashtagsAsArray.length <= 5;
 }, 'Хештегов не может быть больше пяти');
 
 
