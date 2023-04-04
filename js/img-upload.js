@@ -18,6 +18,7 @@ const $scaleDown = document.querySelector('.scale__control--smaller');
 
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
+  $scaleValue.value = value + '%';
   if (value === maxZoom) {
     $scaleUp.disabled = true;
     $scaleDown.disabled = false;
@@ -73,6 +74,7 @@ const openImgUpload = () => {
   $imgUploadOverlay.classList.remove('hidden');
   $body.classList.add('modal-open');
 
+  /* Логика */
   applyZoom(currentZoom);
 
   $scaleDown.addEventListener('click', onClickToScaleControlDown);
