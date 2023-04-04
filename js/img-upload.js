@@ -256,7 +256,8 @@ const openImgUpload = () => {
     filter.addEventListener('change', onFilterChange);
   });
 
-  onFilterChange(); /* Вызываем сразу же, один раз, чтобы применить текущие правила выбранного в HTML фильтра. */
+  /* Вызываем сразу же, один раз, чтобы применить текущие правила выбранного в HTML фильтра. */
+  onFilterChange();
 
   /* Обработчики закрытия: добавляем */
   $imgUploadCancel.addEventListener('click', onImgUploadCrossClick);
