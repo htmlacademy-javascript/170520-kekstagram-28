@@ -8,9 +8,12 @@ const $imgUploadForm = document.querySelector('.img-upload__form');
 const $userImage = document.querySelector('.img-upload__preview img');
 const $scaleValue = document.querySelector('.scale__control--value');
 let currentZoom = +$scaleValue.value.replace('%', '');
-const maxZoom = 100;
-const minZoom = 25;
 const zoomStep = 25;
+const zoom = {
+  'MIN': 25,
+  'MAX': 100,
+  'STEP': 25
+}
 const $scaleUp = document.querySelector('.scale__control--bigger');
 const $scaleDown = document.querySelector('.scale__control--smaller');
 const $filters = document.querySelectorAll('.effects__radio');
@@ -30,10 +33,10 @@ const $sliderValue = document.querySelector('.effect-level__value');
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
   $scaleValue.value = `${value}%`;
-  if (value === maxZoom) {
+  if (value === zoom.MAX) {
     $scaleUp.disabled = true;
     $scaleDown.disabled = false;
-  } else if (value === minZoom) {
+  } else if (value === zoom.MIN) {
     $scaleDown.disabled = true;
     $scaleUp.disabled = false;
   } else {
@@ -69,15 +72,15 @@ const onDocumentKeydownToCloseImgUpload = (event) => {
 };
 
 const onClickToScaleControlDown = () => {
-  if (currentZoom > minZoom) {
-    currentZoom = currentZoom - zoomStep;
+  if (currentZoom > zoom.MIN) {
+    currentZoom = currentZoom - zoom.STEP;
     applyZoom(currentZoom);
   }
 };
 
 const onClickToScaleControlUp = () => {
-  if (currentZoom < maxZoom) {
-    currentZoom = currentZoom + zoomStep;
+  if (currentZoom < zoom.MAX) {
+    currentZoom = currentZoom + zoom.STEP;
     applyZoom(currentZoom);
   }
 };
