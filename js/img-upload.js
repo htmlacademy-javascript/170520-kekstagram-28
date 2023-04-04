@@ -7,13 +7,27 @@ const $imgUploadCancel = document.querySelector('.img-upload__cancel');
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $userImage = document.querySelector('.img-upload__preview img');
 const $scaleValue = document.querySelector('.scale__control--value');
-let zoom = +$scaleValue.value.replace('%', '');
+let currentZoom = +$scaleValue.value.replace('%', '');
+const maxZoom = 100;
+const minZoom = 25;
+const zoomStep = 25;
+
 const $scaleUp = document.querySelector('.scale__control--bigger');
 const $scaleDown = document.querySelector('.scale__control--smaller');
 
 
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
+  if (value === maxZoom) {
+    $scaleUp.disabled = true;
+    $scaleDown.disabled = false;
+  } else if (value === minZoom) {
+    $scaleDown.disabled = true;
+    $scaleUp.disabled = false;
+  } else {
+    $scaleDown.disabled = false;
+    $scaleUp.disabled = false;
+  }
 }
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
@@ -38,16 +52,16 @@ const onDocumentKeydownToCloseImgUpload = (event) => {
 
 
 const onClickToScaleControlDown = () => {
-  if ( zoom > 25) {
-    zoom = zoom - 25;
-    applyZoom(zoom);
+  if ( currentZoom > minZoom) {
+    currentZoom = currentZoom - zoomStep;
+    applyZoom(currentZoom);
   }
 }
 
 const onClickToScaleControlUp = () => {
-  if ( zoom < 100) {
-    zoom = zoom + 25;
-    applyZoom(zoom);
+  if ( currentZoom < maxZoom) {
+    currentZoom = currentZoom + zoomStep;
+    applyZoom(currentZoom);
   }
 }
 
@@ -60,7 +74,7 @@ const openImgUpload = () => {
   $imgUploadOverlay.classList.remove('hidden');
   $body.classList.add('modal-open');
 
-  applyZoom(zoom);
+  applyZoom(currentZoom);
 
   $scaleDown.addEventListener('click', onClickToScaleControlDown);
   $scaleUp.addEventListener('click', onClickToScaleControlUp);

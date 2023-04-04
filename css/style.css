@@ -463,24 +463,23 @@ main {
   border: 0;
 }
 
-.scale__control--smaller:hover,
-.scale__control--smaller:focus,
-.scale__control--bigger:hover,
-.scale__control--bigger:focus {
+.scale__control--smaller[disabled],
+.scale__control--bigger[disabled] {
+  opacity: 0.2;
+}
+
+.scale__control--smaller:not([disabled]):hover,
+.scale__control--bigger:not([disabled]):hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.scale__control--smaller:active,
-.scale__control--bigger:active {
+.scale__control--smaller:not([disabled]):active,
+.scale__control--bigger:not([disabled]):active {
   -webkit-transform: translateY(1px);
       -ms-transform: translateY(1px);
           transform: translateY(1px);
 }
 
-.scale__control--smaller[disabled],
-.scale__control--bigger[disabled] {
-  opacity: 0.2;
-}
 
 .scale__control--smaller {
   border-radius: 50% 0 0 50%;
