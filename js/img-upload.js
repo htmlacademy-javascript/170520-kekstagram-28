@@ -28,7 +28,7 @@ const applyZoom = (value) => {
     $scaleDown.disabled = false;
     $scaleUp.disabled = false;
   }
-}
+};
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
 /* eslint-disable no-use-before-define */
@@ -50,20 +50,19 @@ const onDocumentKeydownToCloseImgUpload = (event) => {
 /* eslint-enable */
 
 
-
 const onClickToScaleControlDown = () => {
-  if ( currentZoom > minZoom) {
+  if (currentZoom > minZoom) {
     currentZoom = currentZoom - zoomStep;
     applyZoom(currentZoom);
   }
-}
+};
 
 const onClickToScaleControlUp = () => {
-  if ( currentZoom < maxZoom) {
+  if (currentZoom < maxZoom) {
     currentZoom = currentZoom + zoomStep;
     applyZoom(currentZoom);
   }
-}
+};
 
 
 /* Открытие модального окна */
