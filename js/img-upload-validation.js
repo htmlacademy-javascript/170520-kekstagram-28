@@ -39,14 +39,14 @@ pristine.addValidator($hashtags, (hashtags) => {
     return true;
   }
 
-  let flagIfError = true;
   const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
-  hashtagsAsArray.forEach((hashtag) => {
-    if (!hashtagRegExp.test(hashtag)) {
-      flagIfError = false;
-    }
-  });
-  return flagIfError;
+
+  function isTagValid(hashtag) {
+    return hashtagRegExp.test(hashtag)
+  }
+
+  return hashtagsAsArray.every(isTagValid);
+
 
 }, 'Неверный формат');
 
