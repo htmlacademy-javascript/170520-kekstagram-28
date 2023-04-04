@@ -58,13 +58,8 @@ $imgUploadForm.addEventListener('submit', (event) => {
 
   const isFormValid = pristine.validate();
 
-  /* eslint-disable no-alert */
-  if (isFormValid) {
-    alert('Можно отправлять');
-  } else {
-    alert('Форма невалидна');
-  }
-  /* eslint-enable no-alert */
+  /* eslint-disable-next-line no-alert */
+  alert(isFormValid ? 'Можно отправлять' : 'Форма невалидна');
 
 });
 
