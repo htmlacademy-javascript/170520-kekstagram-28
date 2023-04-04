@@ -8,12 +8,11 @@ const $imgUploadForm = document.querySelector('.img-upload__form');
 const $userImage = document.querySelector('.img-upload__preview img');
 const $scaleValue = document.querySelector('.scale__control--value');
 let currentZoom = +$scaleValue.value.replace('%', '');
-const zoomStep = 25;
 const zoom = {
   'MIN': 25,
   'MAX': 100,
   'STEP': 25
-}
+};
 const $scaleUp = document.querySelector('.scale__control--bigger');
 const $scaleDown = document.querySelector('.scale__control--smaller');
 const $filters = document.querySelectorAll('.effects__radio');
