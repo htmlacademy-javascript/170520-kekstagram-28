@@ -18,7 +18,7 @@ let currentFilter;
 
 const applyZoom = (value) => {
   $userImage.style.transform = `scale(${value / 100})`;
-  $scaleValue.value = `${value} + '%'`;
+  $scaleValue.value = `${value}%`;
   if (value === maxZoom) {
     $scaleUp.disabled = true;
     $scaleDown.disabled = false;
@@ -100,6 +100,7 @@ const openImgUpload = () => {
   filters.forEach((filter) => {
     filter.addEventListener('change', onFilterChange);
   });
+
 
 
   /* Обработчики закрытия: добавляем */
