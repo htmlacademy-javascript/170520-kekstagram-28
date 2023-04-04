@@ -5,7 +5,16 @@ const $uploadFile = document.querySelector('#upload-file');
 const $imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const $imgUploadCancel = document.querySelector('.img-upload__cancel');
 const $imgUploadForm = document.querySelector('.img-upload__form');
+const $userImage = document.querySelector('.img-upload__preview img');
+const $scaleValue = document.querySelector('.scale__control--value');
+let zoom = +$scaleValue.value.replace('%', '');
+const $scaleUp = document.querySelector('.scale__control--bigger');
+const $scaleDown = document.querySelector('.scale__control--smaller');
 
+
+const applyZoom = (value) => {
+  $userImage.style.transform = `scale(${value / 100})`;
+}
 
 /* Вспомогательные функции для того чтобы можно было повесить обработчики, СОХРАНИТЬ, а потом снять их */
 /* eslint-disable no-use-before-define */
@@ -27,6 +36,22 @@ const onDocumentKeydownToCloseImgUpload = (event) => {
 /* eslint-enable */
 
 
+
+const onClickToScaleControlDown = () => {
+  if ( zoom > 25) {
+    zoom = zoom - 25;
+    applyZoom(zoom);
+  }
+}
+
+const onClickToScaleControlUp = () => {
+  if ( zoom < 100) {
+    zoom = zoom + 25;
+    applyZoom(zoom);
+  }
+}
+
+
 /* Открытие модального окна */
 
 const openImgUpload = () => {
@@ -34,6 +59,12 @@ const openImgUpload = () => {
   /* Непосредственно показ */
   $imgUploadOverlay.classList.remove('hidden');
   $body.classList.add('modal-open');
+
+  applyZoom(zoom);
+
+  $scaleDown.addEventListener('click', onClickToScaleControlDown);
+  $scaleUp.addEventListener('click', onClickToScaleControlUp);
+
 
   /* Обработчики закрытия: добавляем */
   $imgUploadCancel.addEventListener('click', onImgUploadCrossClick);
@@ -52,6 +83,10 @@ const closeImgUpload = () => {
 
   /* Логика: резетим форму */
   $imgUploadForm.reset();
+
+  $scaleDown.removeEventListener('click', onImgUploadCrossClick);
+  $scaleUp.removeEventListener('click', onClickToScaleControlUp);
+
 
   /* Обработчики закрытия: снимаем */
   $imgUploadCancel.removeEventListener('click', onImgUploadCrossClick);

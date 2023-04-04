@@ -463,15 +463,23 @@ main {
   border: 0;
 }
 
-.scale__control:hover,
-.scale__control:focus {
+.scale__control--smaller:hover,
+.scale__control--smaller:focus,
+.scale__control--bigger:hover,
+.scale__control--bigger:focus {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.scale__control:active {
+.scale__control--smaller:active,
+.scale__control--bigger:active {
   -webkit-transform: translateY(1px);
       -ms-transform: translateY(1px);
           transform: translateY(1px);
+}
+
+.scale__control--smaller[disabled],
+.scale__control--bigger[disabled] {
+  opacity: 0.2;
 }
 
 .scale__control--smaller {
@@ -501,6 +509,8 @@ main {
 
   border: solid rgba(255, 255, 255, 0.5);
   border-width: 0 2px;
+
+  outline: none;
 }
 
 .scale__control--bigger {
