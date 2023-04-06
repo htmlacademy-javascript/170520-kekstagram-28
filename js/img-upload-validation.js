@@ -2,6 +2,7 @@ import {hasDuplicates} from './util.js';
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
+const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
 
 
 /* С хештэгами гораздо удобнее работать, когда они представлены в виде массива: */
@@ -21,39 +22,21 @@ const pristine = new Pristine($imgUploadForm, {
 }, false);
 
 
+/* Добавляем кастомные правила на валидацию тегов */
+
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-  return !hasDuplicates(hashtagsAsArray);
+  return !hashtagsAsArray || !hasDuplicates(hashtagsAsArray);
 }, 'В хештегах имеются дубликаты');
 
-
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-  return hashtagsAsArray.length <= 5;
+  return !hashtagsAsArray || hashtagsAsArray.length <= 5;
 }, 'Хештегов не может быть больше пяти');
 
-
 pristine.addValidator($hashtags, (hashtags) => {
   const hashtagsAsArray = hashtagsToTrimmedArray(hashtags);
-  if (!hashtagsAsArray) {
-    return true;
-  }
-
-  let flagIfError = true;
-  const hashtagRegExp = /^#[a-zа-яё0-9]{1,19}$/i;
-  hashtagsAsArray.forEach((hashtag) => {
-    if (!hashtagRegExp.test(hashtag)) {
-      flagIfError = false;
-    }
-  });
-  return flagIfError;
-
+  return !hashtagsAsArray || hashtagsAsArray.every((hashtag) => hashtagRegExp.test(hashtag));
 }, 'Неверный формат');
 
 
@@ -64,13 +47,8 @@ $imgUploadForm.addEventListener('submit', (event) => {
 
   const isFormValid = pristine.validate();
 
-  /* eslint-disable no-alert */
-  if (isFormValid) {
-    alert('Можно отправлять');
-  } else {
-    alert('Форма невалидна');
-  }
-  /* eslint-enable no-alert */
+  /* eslint-disable-next-line no-alert */
+  alert(isFormValid ? 'Можно отправлять' : 'Форма невалидна');
 
 });
 

@@ -463,16 +463,23 @@ main {
   border: 0;
 }
 
-.scale__control:hover,
-.scale__control:focus {
+.scale__control--smaller[disabled],
+.scale__control--bigger[disabled] {
+  opacity: 0.2;
+}
+
+.scale__control--smaller:not([disabled]):hover,
+.scale__control--bigger:not([disabled]):hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-.scale__control:active {
+.scale__control--smaller:not([disabled]):active,
+.scale__control--bigger:not([disabled]):active {
   -webkit-transform: translateY(1px);
       -ms-transform: translateY(1px);
           transform: translateY(1px);
 }
+
 
 .scale__control--smaller {
   border-radius: 50% 0 0 50%;
@@ -501,6 +508,8 @@ main {
 
   border: solid rgba(255, 255, 255, 0.5);
   border-width: 0 2px;
+
+  outline: none;
 }
 
 .scale__control--bigger {
@@ -548,6 +557,7 @@ main {
   display: block;
   max-width: 600px;
   max-height: 600px;
+  transition: transform 0.3s ease;
 }
 
 
@@ -588,6 +598,18 @@ main {
 
 .effect-level .noUi-connect {
   background: #ffe753;
+}
+
+.img-upload__effect-level {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease,
+              visibility 0.2s ease;
+}
+
+.img-upload__effect-level--visible {
+  opacity: 1;
+  visibility: visible;
 }
 
 .effect-level__value {
