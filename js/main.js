@@ -1,10 +1,10 @@
-import './img-upload.js';
-import './img-upload-validation.js';
+import {closeImgUpload} from './img-upload.js';
+import {setImgUploadFormSubmit} from './img-upload-validation.js';
 
 import {createLoader} from './load.js';
 import {formGalleryAsFragment} from './gallery.js';
 
-
+/* Скачивание и отрисовка */
 const loadGallery = createLoader((data) => {
   document.querySelector('.pictures').append(
     formGalleryAsFragment(data)
@@ -18,4 +18,6 @@ const loadGallery = createLoader((data) => {
 loadGallery();
 
 
+/* Отправка формы */
+setImgUploadFormSubmit(closeImgUpload);
 

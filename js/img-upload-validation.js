@@ -42,31 +42,28 @@ pristine.addValidator($hashtags, (hashtags) => {
 
 /* Инициализируем валидацию во время отправки формы */
 
-$imgUploadForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+const setImgUploadFormSubmit = (onSuccess) => {
+  $imgUploadForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  const isFormValid = pristine.validate();
+    const isFormValid = pristine.validate();
 
-  if (isFormValid) {
+    if (isFormValid) {
 
-    const formData = new FormData(event.target);
+      const formData = new FormData(event.target);
 
-    fetch('https://28.javascript.pages.academy/kekstagram', {
-      method: 'post',
-      credentials: 'same-origin',
-      body: formData
-    })
-      .then((response) => {
-        console.log(response)
-        return response.json()
+      fetch('https://28.javascript.pages.academy/kekstagram', {
+        method: 'post',
+        credentials: 'same-origin',
+        body: formData
       })
-      .then((data) => {
-        console.log(data)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
-});
+        .then(() => onSuccess())
+        .catch((error) => {
+          console.error(error)
+        })
 
+    }
+  });
+};
 
+export {setImgUploadFormSubmit};
