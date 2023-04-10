@@ -1,4 +1,7 @@
-import {hasDuplicates, showErrorAlert} from './util.js';
+import {hasDuplicates} from './util.js';
+import {closeImgUpload} from './img-upload.js';
+
+const ALERT_SHOW_TIME = 5000;
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
@@ -42,7 +45,7 @@ pristine.addValidator($hashtags, (hashtags) => {
 
 /* Инициализируем валидацию во время отправки формы */
 
-const setImgUploadFormSubmit = (onSuccess) => {
+const setImgUploadFormSubmit = () => {
   $imgUploadForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -59,7 +62,7 @@ const setImgUploadFormSubmit = (onSuccess) => {
       })
         .then((response) => {
             if(response.ok) {
-              onSuccess('Изображение успешно загружено');
+              showSuccessAlert('Изображение успешно загружено');
             } else {
               throw new Error('Отправленные данные невалидны');
             }
@@ -72,5 +75,43 @@ const setImgUploadFormSubmit = (onSuccess) => {
     }
   });
 };
+
+
+/* Уведомление Error */
+
+const hideErrorAlert = (template) => {
+  template.remove();
+  $imgUploadForm.submit(); /* ??? Как будто недовызывается часть кода при повторном сабмите */
+}
+
+const showErrorAlert = (message) => {
+  const template = document.querySelector('#error').content.querySelector('.error');
+  template.querySelector('.error__title').innerText = message;
+  template.querySelector('.error__button').addEventListener('click', () => {
+    hideErrorAlert(template);
+  });
+  document.body.append(template);
+}
+
+
+/* Уведомление Success */
+const hideSuccessAlert = (template) => {
+  template.remove();
+  closeImgUpload(); /* В случае если показываем отправку изображения */
+}
+
+const showSuccessAlert = (message) => {
+  const template = document.querySelector('#success').content.querySelector('.success');
+  template.querySelector('.success__title').innerText = message;
+  template.querySelector('.success__button').addEventListener('click', () => {
+    hideSuccessAlert(template);
+  });
+
+  document.body.append(template);
+
+  setTimeout(() => {
+    hideSuccessAlert(template);
+  }, ALERT_SHOW_TIME);
+}
 
 export {setImgUploadFormSubmit};

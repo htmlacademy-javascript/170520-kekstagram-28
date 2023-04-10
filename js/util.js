@@ -1,7 +1,3 @@
-import {closeImgUpload} from './img-upload.js';
-
-const ALERT_SHOW_TIME = 5000;
-
 /* Функция для проверки длины строки
  * Она принимает строку, которую нужно проверить, и максимальную длину и возвращает true,
  * если строка меньше или равна указанной длине, и false, если строка длиннее
@@ -134,24 +130,6 @@ const isEscapeKey = (event) => event.key === 'Escape';
 const hasDuplicates = (array) => array ? (new Set(array)).size !== array.length : null;
 
 
-/* Отрисовка уведомлений */
-const showErrorAlert = (message) => {
-  const template = document.querySelector('#error').content.querySelector('.error');
-  template.querySelector('.error__title').innerText = message;
-  document.body.append(template);
-}
 
-const showSuccessAlert = (message) => {
-  const template = document.querySelector('#success').content.querySelector('.success');
-  template.querySelector('.success__title').innerText = message;
-
-  document.body.append(template);
-
-  setTimeout(() => {
-    template.remove();
-    closeImgUpload(); /* В случае если показываем отправку изображения */
-  }, ALERT_SHOW_TIME);
-}
-
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates, showErrorAlert, showSuccessAlert};
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};
 

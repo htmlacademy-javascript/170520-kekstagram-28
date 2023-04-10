@@ -1,9 +1,7 @@
-import {closeImgUpload} from './img-upload.js';
 import {setImgUploadFormSubmit} from './img-upload-validation.js';
 
 import {createLoader} from './load.js';
 import {formGalleryAsFragment} from './gallery.js';
-import {showSuccessAlert} from './util.js';
 
 /* Скачивание и отрисовка */
 const loadGallery = createLoader((data) => {
@@ -20,5 +18,5 @@ loadGallery();
 
 
 /* Отправка формы */
-setImgUploadFormSubmit(showSuccessAlert);
+setImgUploadFormSubmit();
 
