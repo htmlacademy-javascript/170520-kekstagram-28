@@ -9,7 +9,11 @@ const loadGallery = createLoader((data) => {
   document.querySelector('.pictures').append(
     formGalleryAsFragment(data)
   )
-}, alert);
+}, (error) => {
+  document.querySelector('.pictures').append(
+    error
+  )
+});
 
 loadGallery();
 
