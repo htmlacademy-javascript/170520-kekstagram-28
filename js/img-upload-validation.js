@@ -47,9 +47,26 @@ $imgUploadForm.addEventListener('submit', (event) => {
 
   const isFormValid = pristine.validate();
 
-  /* eslint-disable-next-line no-alert */
-  alert(isFormValid ? 'Можно отправлять' : 'Форма невалидна');
+  if (isFormValid) {
 
+    const formData = new FormData(event.target);
+
+    fetch('https://28.javascript.pages.academy/kekstagram', {
+      method: 'post',
+      credentials: 'same-origin',
+      body: formData
+    })
+      .then((response) => {
+        console.log(response)
+        return response.json()
+      })
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 });
 
 
