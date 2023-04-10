@@ -1,4 +1,4 @@
-import {hasDuplicates} from './util.js';
+import {hasDuplicates, showAlert} from './util.js';
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
@@ -57,9 +57,16 @@ const setImgUploadFormSubmit = (onSuccess) => {
         credentials: 'same-origin',
         body: formData
       })
-        .then(() => onSuccess())
+        .then((response) => {
+            if(response.ok) {
+              onSuccess()
+            } else {
+              showAlert('Ошибка отправки1')
+            }
+          }
+        )
         .catch((error) => {
-          console.error(error)
+          showAlert('Ошибка отправки2')
         })
 
     }
