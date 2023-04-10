@@ -1,3 +1,5 @@
+import {closeImgUpload} from './img-upload.js';
+
 const ALERT_SHOW_TIME = 5000;
 
 /* Функция для проверки длины строки
@@ -132,27 +134,24 @@ const isEscapeKey = (event) => event.key === 'Escape';
 const hasDuplicates = (array) => array ? (new Set(array)).size !== array.length : null;
 
 
-/* Отрисовка ошибок */
-const showAlert = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = '100';
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = '0';
-  alertContainer.style.top = '0';
-  alertContainer.style.right = '0';
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
+/* Отрисовка уведомлений */
+const showErrorAlert = (message) => {
+  const template = document.querySelector('#error').content.querySelector('.error');
+  template.querySelector('.error__title').innerText = message;
+  document.body.append(template);
+}
 
-  alertContainer.textContent = message;
+const showSuccessAlert = (message) => {
+  const template = document.querySelector('#success').content.querySelector('.success');
+  template.querySelector('.success__title').innerText = message;
 
-  document.body.append(alertContainer);
+  document.body.append(template);
 
   setTimeout(() => {
-    alertContainer.remove();
+    template.remove();
+    closeImgUpload(); /* В случае если показываем отправку изображения */
   }, ALERT_SHOW_TIME);
 }
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates, showAlert};
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates, showErrorAlert, showSuccessAlert};
 

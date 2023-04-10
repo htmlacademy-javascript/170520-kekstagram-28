@@ -1,4 +1,4 @@
-import {hasDuplicates, showAlert} from './util.js';
+import {hasDuplicates, showErrorAlert} from './util.js';
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
@@ -59,14 +59,14 @@ const setImgUploadFormSubmit = (onSuccess) => {
       })
         .then((response) => {
             if(response.ok) {
-              onSuccess()
+              onSuccess('Изображение успешно загружено');
             } else {
-              showAlert('Ошибка отправки1')
+              throw new Error('Отправленные данные невалидны');
             }
           }
         )
         .catch((error) => {
-          showAlert('Ошибка отправки2')
+          showErrorAlert(error.message)
         })
 
     }
