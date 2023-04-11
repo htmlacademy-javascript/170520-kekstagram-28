@@ -77,27 +77,16 @@ const setImgUploadFormSubmit = () => {
 };
 
 
-/* Уведомление Error */
-
-const hideErrorAlert = (template) => {
-  template.remove();
-  $imgUploadForm.submit(); /* ??? Как будто недовызывается часть кода при повторном сабмите */
-}
-
-const showErrorAlert = (message) => {
-  const template = document.querySelector('#error').content.querySelector('.error');
-  template.querySelector('.error__title').innerText = message;
-  template.querySelector('.error__button').addEventListener('click', () => {
-    hideErrorAlert(template);
-  });
-  document.body.append(template);
-}
 
 
 /* Уведомление Success */
+
+let hideTimeout;
+
 const hideSuccessAlert = (template) => {
+  clearTimeout(hideTimeout); /* Если мы в течении ALERT_SHOW_TIME успеваем повторно открыть окно */
   template.remove();
-  closeImgUpload(); /* В случае если показываем отправку изображения */
+  closeImgUpload();
 }
 
 const showSuccessAlert = (message) => {
@@ -109,9 +98,32 @@ const showSuccessAlert = (message) => {
 
   document.body.append(template);
 
-  setTimeout(() => {
+  hideTimeout = setTimeout(() => {
     hideSuccessAlert(template);
   }, ALERT_SHOW_TIME);
+}
+
+
+/* Уведомление Error */
+
+const hideErrorAlert = (template) => {
+  template.remove();
+  closeImgUpload();
+}
+
+const retryFromErrorAlert = (template) => {
+  template.remove();
+  $imgUploadForm.submit(); /* ??? Как будто недовызывается часть кода при повторном сабмите */
+  closeImgUpload();
+}
+
+const showErrorAlert = (message) => {
+  const template = document.querySelector('#error').content.querySelector('.error');
+  template.querySelector('.error__title').innerText = message;
+  template.querySelector('.error__button--close').addEventListener('click', () => {
+    hideErrorAlert(template);
+  });
+  document.body.append(template);
 }
 
 export {setImgUploadFormSubmit};
