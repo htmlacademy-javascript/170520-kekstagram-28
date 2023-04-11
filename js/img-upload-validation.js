@@ -1,4 +1,7 @@
 import {hasDuplicates} from './util.js';
+import {closeImgUpload} from './img-upload.js';
+
+const ALERT_SHOW_TIME = 5000;
 
 const $imgUploadForm = document.querySelector('.img-upload__form');
 const $hashtags = $imgUploadForm.querySelector('[name="hashtags"]');
@@ -42,14 +45,85 @@ pristine.addValidator($hashtags, (hashtags) => {
 
 /* Инициализируем валидацию во время отправки формы */
 
-$imgUploadForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+const setImgUploadFormSubmit = () => {
+  $imgUploadForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  const isFormValid = pristine.validate();
+    const isFormValid = pristine.validate();
 
-  /* eslint-disable-next-line no-alert */
-  alert(isFormValid ? 'Можно отправлять' : 'Форма невалидна');
+    if (isFormValid) {
 
-});
+      const formData = new FormData(event.target);
+
+      fetch('https://28.javascript.pages.academy/kekstagram', {
+        method: 'post',
+        credentials: 'same-origin',
+        body: formData
+      })
+        .then((response) => {
+            if(response.ok) {
+              showSuccessAlert('Изображение успешно загружено');
+            } else {
+              throw new Error('Отправленные данные невалидны');
+            }
+          }
+        )
+        .catch((error) => {
+          showErrorAlert(error.message)
+        })
+
+    }
+  });
+};
 
 
+
+
+/* Уведомление Success */
+
+let hideTimeout;
+
+const hideSuccessAlert = (template) => {
+  clearTimeout(hideTimeout); /* Если мы в течении ALERT_SHOW_TIME успеваем повторно открыть окно */
+  template.remove();
+  closeImgUpload();
+}
+
+const showSuccessAlert = (message) => {
+  const template = document.querySelector('#success').content.querySelector('.success');
+  template.querySelector('.success__title').innerText = message;
+  template.querySelector('.success__button').addEventListener('click', () => {
+    hideSuccessAlert(template);
+  });
+
+  document.body.append(template);
+
+  hideTimeout = setTimeout(() => {
+    hideSuccessAlert(template);
+  }, ALERT_SHOW_TIME);
+}
+
+
+/* Уведомление Error */
+
+const hideErrorAlert = (template) => {
+  template.remove();
+  closeImgUpload();
+}
+
+const retryFromErrorAlert = (template) => {
+  template.remove();
+  $imgUploadForm.submit(); /* ??? Как будто недовызывается часть кода при повторном сабмите */
+  closeImgUpload();
+}
+
+const showErrorAlert = (message) => {
+  const template = document.querySelector('#error').content.querySelector('.error');
+  template.querySelector('.error__title').innerText = message;
+  template.querySelector('.error__button--close').addEventListener('click', () => {
+    hideErrorAlert(template);
+  });
+  document.body.append(template);
+}
+
+export {setImgUploadFormSubmit};

@@ -130,5 +130,6 @@ const isEscapeKey = (event) => event.key === 'Escape';
 const hasDuplicates = (array) => array ? (new Set(array)).size !== array.length : null;
 
 
+
 export {getRandomInteger, getRandomArrayElement, createIdGenerator, isEscapeKey, hasDuplicates};
 

@@ -312,3 +312,6 @@ const $description = document.querySelector('.text__description');
     }
   });
 });
+
+
+export {closeImgUpload}
